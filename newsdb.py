@@ -10,7 +10,7 @@ c = db.cursor()
 
 # query and print most popular 3 articles of all time
 query = ("select title, count(title) as num from articles, log "
-         "where log.path like concat('%',articles.slug,'%') "
+         "where log.path like concat('%',articles.slug) "
          "group by title order by num desc limit 3;")
 c.execute(query)
 rows = c.fetchall()
@@ -21,7 +21,7 @@ for row in rows:
 
 # query and print authors ranked by popularity defined by views
 query = ("select name, count(*) as num from articles, authors, log "
-         "where (author = authors.id AND path like concat('%',slug,'%')) "
+         "where (author = authors.id AND path like concat('%',slug)) "
          "group by name order by num desc;")
 c.execute(query)
 rows = c.fetchall()
